@@ -1,0 +1,2 @@
+import { ManagementPage } from '../../components/ui/ManagementPage'; import { notices } from '../../data/mock'
+export const NoticesPage = () => <ManagementPage title="Thông báo" description="Soạn, gửi và theo dõi các thông báo đến cư dân." entity="thông báo" rows={notices} columns={[["id","Mã"],["title","Tiêu đề"],["category","Phân loại"],["date","Ngày tạo"],["status","Trạng thái"]]} formFields={['Tiêu đề','Phân loại','Nội dung','Đối tượng nhận']} />

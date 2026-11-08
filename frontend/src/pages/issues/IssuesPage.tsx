@@ -1,0 +1,2 @@
+import { ManagementPage } from '../../components/ui/ManagementPage'; import { issues } from '../../data/mock'
+export const IssuesPage = () => <ManagementPage title="Quản lý phản ánh" description="Theo dõi, phân loại và phản hồi phản ánh của cư dân." entity="phản ánh" rows={issues} columns={[["id","Mã phản ánh"],["title","Nội dung"],["apartment","Căn hộ"],["date","Ngày gửi"],["status","Trạng thái"]]} formFields={['Tiêu đề phản ánh','Căn hộ','Nội dung phản hồi','Trạng thái']} />

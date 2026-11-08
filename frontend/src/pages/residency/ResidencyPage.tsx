@@ -1,0 +1,2 @@
+import { ManagementPage } from '../../components/ui/ManagementPage'; import { residency } from '../../data/mock'
+export const ResidencyPage = () => <ManagementPage title="Quản lý biến động cư trú" description="Theo dõi các yêu cầu chuyển đến, chuyển đi, tạm trú và tạm vắng." entity="biến động" rows={residency} columns={[["id","Mã hồ sơ"],["type","Loại biến động"],["resident","Cư dân"],["apartment","Căn hộ"],["date","Ngày ghi nhận"],["status","Trạng thái"]]} formFields={['Loại biến động','Cư dân','Căn hộ','Ngày hiệu lực']} />
