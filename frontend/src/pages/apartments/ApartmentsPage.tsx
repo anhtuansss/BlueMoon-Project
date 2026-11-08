@@ -1,0 +1,2 @@
+import { ManagementPage } from '../../components/ui/ManagementPage'; import { apartments } from '../../data/mock'
+export const ApartmentsPage = () => <ManagementPage title="Quản lý căn hộ" description="Theo dõi thông tin, trạng thái sử dụng và cư dân tại từng căn hộ." entity="căn hộ" rows={apartments} columns={[["code","Mã căn hộ"],["area","Diện tích"],["owner","Chủ hộ"],["members","Cư dân"],["status","Trạng thái"]]} formFields={['Mã căn hộ','Diện tích','Chủ hộ','Trạng thái']} />
