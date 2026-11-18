@@ -1,11 +1,10 @@
 import { useState, useEffect } from 'react';
 import { healthService } from '../services';
-import type { SystemStatus } from '../types';
 
 export function useHealthCheck() {
-  const [status, setStatus] = useState<SystemStatus | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
+  const [status, setStatus] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   const checkStatus = async () => {
     setLoading(true);

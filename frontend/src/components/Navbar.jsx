@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const Navbar: React.FC = () => {
+export const Navbar = () => {
   return (
     <header className="app-header">
       <div className="brand">

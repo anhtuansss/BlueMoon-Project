@@ -1,0 +1,32 @@
+import { useEffect, useState } from 'react'
+
+const tone = { ok: 'bg-ok-soft text-ok', warn: 'bg-warn-soft text-warn', bad: 'bg-bad-soft text-bad', info: 'bg-soft text-soft-ink', neutral: 'bg-slate-100 text-slate-600' }
+
+export function Icon({ name, className = '' }) {
+  const glyph = { home: '⌂', building: '▥', users: '♙', move: '↔', receipt: '▤', wallet: '◫', chart: '▥', bell: '♧', message: '◉', plus: '+', search: '⌕', edit: '✎', eye: '◌', close: '×', check: '✓', menu: '☰', logout: '↪', filter: '≡', alert: '!', calendar: '□' }
+  return <span aria-hidden className={`inline-flex shrink-0 items-center justify-center font-bold ${className}`}>{glyph[name] ?? '•'}</span>
+}
+
+export function Button({ variant = 'primary', size = 'md', children, className = '', ...props }) {
+  const variants = { primary: 'bg-primary text-white hover:bg-blue-700', secondary: 'border border-line bg-surface text-ink hover:bg-canvas', danger: 'bg-bad text-white hover:bg-red-800', ghost: 'text-soft-ink hover:bg-soft' }
+  return <button {...props} className={`inline-flex items-center justify-center gap-2 rounded-ui font-semibold transition focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary disabled:opacity-45 ${size === 'sm' ? 'h-8 px-3 text-xs' : 'h-10 px-4 text-sm'} ${variants[variant]} ${className}`}>{children}</button>
+}
+
+export function Card({ title, action, children, className = '' }) {
+  return <section className={`rounded-ui border border-line bg-surface shadow-[0_1px_2px_rgba(16,24,40,.06)] ${className}`}>{title && <div className="flex items-center justify-between gap-3 border-b border-line px-4 py-3"><h2 className="font-bold text-ink">{title}</h2>{action}</div>}{children}</section>
+}
+
+export function Badge({ value, children }) { const text = value ?? String(children); const t = /đã|hoàn thành|hoạt động|đã xử lý/i.test(text) ? 'ok' : /quá|lỗi|từ chối|khẩn/i.test(text) ? 'bad' : /chờ|mới|tạm/i.test(text) ? 'warn' : 'info'; return <span className={`inline-flex rounded-full px-2.5 py-1 text-xs font-semibold ${tone[t]}`}>{text}</span> }
+export function Alert({ tone: t = 'info', title, children }) { return <div className={`rounded-ui p-3 text-sm ${tone[t]}`}><b className="block">{title}</b>{children && <p className="mt-1 opacity-90">{children}</p>}</div> }
+export function EmptyState({ title = 'Chưa có dữ liệu', text = 'Dữ liệu sẽ xuất hiện tại đây khi được cập nhật.' }) { return <div className="p-10 text-center"><div className="mx-auto mb-3 flex size-11 items-center justify-center rounded-full bg-soft text-xl text-soft-ink">◌</div><h3 className="font-bold">{title}</h3><p className="mt-1 text-sm text-mute">{text}</p></div> }
+
+export function PageHeader({ title, description, actions }) { return <div className="flex flex-col justify-between gap-3 sm:flex-row sm:items-end"><div><h1 className="text-2xl font-extrabold tracking-tight text-ink sm:text-[26px]">{title}</h1><p className="mt-1 text-sm text-mute">{description}</p></div>{actions && <div className="flex flex-wrap gap-2">{actions}</div>}</div> }
+export function Kpi({ label, value, caption, icon = 'chart' }) { return <Card className="p-4"><div className="flex items-start justify-between"><div><p className="text-sm text-mute">{label}</p><p className="mt-2 text-xl font-extrabold tabular-nums">{value}</p><p className="mt-1 text-xs text-mute">{caption}</p></div><span className="flex size-10 items-center justify-center rounded-ui bg-soft text-lg text-soft-ink"><Icon name={icon} /></span></div></Card> }
+
+export function Field({ label, children, error }) { return <label className="block text-sm font-semibold text-ink"><span className="mb-1.5 block">{label}</span>{children}{error && <span className="mt-1 block text-xs text-bad">{error}</span>}</label> }
+export const inputClass = 'h-10 w-full rounded-ui border border-line bg-surface px-3 text-sm outline-none placeholder:text-slate-400 focus:border-primary focus:ring-2 focus:ring-primary/20'
+export function Modal({ open, title, children, onClose, footer }) { if (!open) return null; return <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/35 p-4" role="dialog" aria-modal="true"><div className="max-h-[90vh] w-full max-w-lg overflow-auto rounded-ui bg-surface shadow-2xl"><div className="flex items-center justify-between border-b border-line px-5 py-4"><h2 className="font-bold">{title}</h2><button onClick={onClose} className="text-xl text-mute">×</button></div><div className="p-5">{children}</div>{footer && <div className="flex justify-end gap-2 border-t border-line px-5 py-3">{footer}</div>}</div></div> }
+export function Drawer({ open, title, children, onClose }) { if (!open) return null; return <div className="fixed inset-0 z-50 bg-slate-950/25" onClick={onClose}><aside onClick={(e) => e.stopPropagation()} className="ml-auto flex h-full w-full max-w-lg flex-col bg-surface shadow-2xl"><div className="flex items-center justify-between border-b border-line px-5 py-4"><h2 className="font-bold">{title}</h2><button onClick={onClose} className="text-xl text-mute">×</button></div><div className="flex-1 overflow-auto p-5">{children}</div></aside></div> }
+export function DemoNotice() { return <Alert tone="info" title="Chế độ trình diễn">Dữ liệu và thao tác trên màn hình này chỉ là mô phỏng giao diện, chưa được lưu vào hệ thống.</Alert> }
+export function useToast() { const [message, setMessage] = useState(''); useEffect(() => { if (!message) return; const t = window.setTimeout(() => setMessage(''), 2500); return () => window.clearTimeout(t) }, [message]); return { message, show: setMessage } }
+export function Toast({ message }) { return message ? <div className="fixed right-4 bottom-4 z-[60] rounded-ui bg-ink px-4 py-3 text-sm font-semibold text-white shadow-xl">{message}</div> : null }

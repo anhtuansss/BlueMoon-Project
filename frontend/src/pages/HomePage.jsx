@@ -1,7 +1,7 @@
 import React from 'react';
 import { useHealthCheck } from '../hooks';
 
-export const HomePage: React.FC = () => {
+export const HomePage = () => {
   const { status, loading, error, refetch } = useHealthCheck();
 
   return (
@@ -15,8 +15,8 @@ export const HomePage: React.FC = () => {
         <div className="status-grid">
           <div className="status-card">
             <div className="status-title">Frontend</div>
-            <div className="status-value status-up">ReactJS + TypeScript + Vite</div>
-            <p className="status-desc">Cấu hình sẵn components, pages, services, hooks, types.</p>
+            <div className="status-value status-up">ReactJS + JavaScript + Vite</div>
+            <p className="status-desc">Cấu hình sẵn components, pages, services và hooks.</p>
           </div>
 
           <div className="status-card">
@@ -59,7 +59,7 @@ export const HomePage: React.FC = () => {
               <li><code>src/pages/</code>: Màn hình giao diện</li>
               <li><code>src/services/</code>: Gọi API backend qua fetch/axios</li>
               <li><code>src/hooks/</code>: Custom React hooks</li>
-              <li><code>src/types/</code>: TypeScript interfaces & types</li>
+              <li><code>src/data/</code>: Mock data phục vụ giao diện</li>
             </ul>
           </div>
           <div className="structure-col">
