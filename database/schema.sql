@@ -1,5 +1,12 @@
 -- ============================================================
--- BlueMoon V1 - Database Schema (Revised)
+-- BlueMoon V1 - Database Schema (Revised, MySQL 8 Compatibility Patch)
+-- PATCH NOTICE: MySQL 8.0.16+ compatibility fixes
+-- 11 ON UPDATE CASCADE actions were changed to ON UPDATE RESTRICT
+-- only on FKs whose child columns occur in CHECK constraints or are base
+-- columns of STORED generated columns. Existing data/business rules unchanged.
+-- This script creates tables but is not a non-destructive migration and is
+-- not intended to be re-run against a partially created/production schema.
+-- ============================================================
 -- Target DBMS: MySQL 8.0.16+
 -- Charset: utf8mb4
 --
@@ -115,7 +122,7 @@ CREATE TABLE HouseholdPerson (
         ON DELETE RESTRICT ON UPDATE CASCADE,
     CONSTRAINT fk_household_person_person
         FOREIGN KEY (person_id) REFERENCES Person (person_id)
-        ON DELETE RESTRICT ON UPDATE CASCADE
+        ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE=InnoDB;
 
 CREATE TABLE HouseholdApartment (
@@ -211,7 +218,7 @@ CREATE TABLE ResidentChangeRequest (
         ON DELETE RESTRICT ON UPDATE CASCADE,
     CONSTRAINT fk_resident_request_reviewed_by
         FOREIGN KEY (reviewed_by) REFERENCES Account (account_id)
-        ON DELETE RESTRICT ON UPDATE CASCADE,
+        ON DELETE RESTRICT ON UPDATE RESTRICT,
     CONSTRAINT fk_resident_request_applied_change
         FOREIGN KEY (applied_residence_change_id) REFERENCES ResidenceChange (residence_change_id)
         ON DELETE RESTRICT ON UPDATE CASCADE
@@ -363,10 +370,10 @@ CREATE TABLE PaymentRequest (
     CONSTRAINT fk_payment_request_obligation_apartment
         FOREIGN KEY (obligation_id, apartment_id)
         REFERENCES FeeObligation (obligation_id, apartment_id)
-        ON DELETE RESTRICT ON UPDATE CASCADE,
+        ON DELETE RESTRICT ON UPDATE RESTRICT,
     CONSTRAINT fk_payment_request_donation_campaign
         FOREIGN KEY (donation_campaign_id) REFERENCES DonationCampaign (donation_campaign_id)
-        ON DELETE RESTRICT ON UPDATE CASCADE,
+        ON DELETE RESTRICT ON UPDATE RESTRICT,
     CONSTRAINT fk_payment_request_created_by
         FOREIGN KEY (created_by) REFERENCES Account (account_id)
         ON DELETE RESTRICT ON UPDATE CASCADE
@@ -425,25 +432,25 @@ CREATE TABLE Payment (
     CONSTRAINT fk_payment_obligation_apartment
         FOREIGN KEY (obligation_id, apartment_id)
         REFERENCES FeeObligation (obligation_id, apartment_id)
-        ON DELETE RESTRICT ON UPDATE CASCADE,
+        ON DELETE RESTRICT ON UPDATE RESTRICT,
     CONSTRAINT fk_payment_donation_campaign
         FOREIGN KEY (donation_campaign_id) REFERENCES DonationCampaign (donation_campaign_id)
-        ON DELETE RESTRICT ON UPDATE CASCADE,
+        ON DELETE RESTRICT ON UPDATE RESTRICT,
     CONSTRAINT fk_payment_apartment
         FOREIGN KEY (apartment_id) REFERENCES Apartment (apartment_id)
         ON DELETE RESTRICT ON UPDATE CASCADE,
     CONSTRAINT fk_payment_request
         FOREIGN KEY (payment_request_id) REFERENCES PaymentRequest (payment_request_id)
-        ON DELETE RESTRICT ON UPDATE CASCADE,
+        ON DELETE RESTRICT ON UPDATE RESTRICT,
     CONSTRAINT fk_payment_payer_person
         FOREIGN KEY (payer_person_id) REFERENCES Person (person_id)
         ON DELETE RESTRICT ON UPDATE CASCADE,
     CONSTRAINT fk_payment_recorded_by
         FOREIGN KEY (recorded_by) REFERENCES Account (account_id)
-        ON DELETE RESTRICT ON UPDATE CASCADE,
+        ON DELETE RESTRICT ON UPDATE RESTRICT,
     CONSTRAINT fk_payment_reversed_by
         FOREIGN KEY (reversed_by) REFERENCES Account (account_id)
-        ON DELETE RESTRICT ON UPDATE CASCADE
+        ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE=InnoDB;
 
 -- Store every incoming SePay webhook transaction, including unmatched ones,
@@ -477,7 +484,7 @@ CREATE TABLE BankTransaction (
         ),
     CONSTRAINT fk_bank_transaction_payment
         FOREIGN KEY (payment_id) REFERENCES Payment (payment_id)
-        ON DELETE RESTRICT ON UPDATE CASCADE
+        ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE=InnoDB;
 
 -- ============================================================
@@ -597,7 +604,7 @@ CREATE TABLE Complaint (
         ON DELETE RESTRICT ON UPDATE CASCADE,
     CONSTRAINT fk_complaint_responded_by
         FOREIGN KEY (responded_by) REFERENCES Account (account_id)
-        ON DELETE RESTRICT ON UPDATE CASCADE
+        ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE=InnoDB;
 
 -- ============================================================
