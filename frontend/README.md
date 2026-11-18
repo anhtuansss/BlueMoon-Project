@@ -1,32 +1,31 @@
-# React + TypeScript + Vite
+# BlueMoon Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+Frontend cho hệ thống quản lý chung cư BlueMoon.
 
-Currently, two official plugins are available:
+## Công nghệ
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- ReactJS 19
+- JavaScript (ES6+) và JSX
+- Vite
+- Tailwind CSS v4
+- React Router DOM
+- Oxlint
 
-## React Compiler
+## Lệnh sử dụng
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Chạy trong thư mục `frontend/`:
 
-## Expanding the Oxlint configuration
-
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
-
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+```bash
+npm install
+npm run dev
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+| Lệnh | Mục đích |
+| --- | --- |
+| `npm run dev` | Chạy môi trường phát triển |
+| `npm run build` | Tạo production build |
+| `npm run lint` | Kiểm tra JavaScript và JSX |
+| `npm run preview` | Xem production build cục bộ |
+
+Mã nguồn trong `src/` sử dụng JavaScript/JSX. UI hiện dùng mock data và các
+tương tác local state để trình diễn, chưa tích hợp nghiệp vụ hoặc API thực tế.

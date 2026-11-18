@@ -5,11 +5,11 @@ import { Icon } from '../components/ui'
 const navigation = [
   ['dashboard', 'Trang chủ', 'home'], ['apartments', 'Căn hộ', 'building'], ['residents', 'Hộ gia đình & cư dân', 'users'], ['residency', 'Biến động cư trú', 'move'], ['fees', 'Khoản thu', 'receipt'], ['payments', 'Thanh toán', 'wallet'], ['reports', 'Thống kê', 'chart'], ['notices', 'Thông báo', 'bell'], ['issues', 'Phản ánh', 'message'],
 ]
-const labels: Record<string, string> = { dashboard: 'Tổng quan', apartments: 'Căn hộ', residents: 'Hộ gia đình & cư dân', residency: 'Biến động cư trú', fees: 'Khoản thu', payments: 'Thanh toán', reports: 'Thống kê', notices: 'Thông báo', issues: 'Phản ánh' }
+const labels = { dashboard: 'Tổng quan', apartments: 'Căn hộ', residents: 'Hộ gia đình & cư dân', residency: 'Biến động cư trú', fees: 'Khoản thu', payments: 'Thanh toán', reports: 'Thống kê', notices: 'Thông báo', issues: 'Phản ánh' }
 
 export function AppShell() {
   const [open, setOpen] = useState(false); const [profile, setProfile] = useState(false); const navigate = useNavigate(); const segment = useLocation().pathname.split('/')[1] || 'dashboard'
-  const item = (path: string, text: string, icon: string) => <NavLink key={path} to={`/${path}`} onClick={() => setOpen(false)} className={({ isActive }) => `flex h-10 items-center gap-3 rounded-ui px-3 text-sm font-semibold transition ${isActive ? 'bg-soft text-soft-ink' : 'text-mute hover:bg-soft/60'}`}><Icon name={icon} className="w-5 text-lg" />{text}</NavLink>
+  const item = (path, text, icon) => <NavLink key={path} to={`/${path}`} onClick={() => setOpen(false)} className={({ isActive }) => `flex h-10 items-center gap-3 rounded-ui px-3 text-sm font-semibold transition ${isActive ? 'bg-soft text-soft-ink' : 'text-mute hover:bg-soft/60'}`}><Icon name={icon} className="w-5 text-lg" />{text}</NavLink>
   return <div className="min-h-screen bg-canvas">
     {open && <button className="fixed inset-0 z-30 bg-slate-950/30 lg:hidden" aria-label="Đóng menu" onClick={() => setOpen(false)} />}
     <aside className={`fixed inset-y-0 left-0 z-40 flex w-64 flex-col border-r border-line bg-surface transition-transform lg:translate-x-0 ${open ? 'translate-x-0' : '-translate-x-full'}`}>
