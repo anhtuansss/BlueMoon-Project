@@ -1,14 +1,21 @@
 package com.bluemoon.dto.response;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import java.time.LocalDateTime;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ApiResponse<T> {
-    private int status;
+    private Integer status;
     private String message;
     private T data;
     private LocalDateTime timestamp;
 
     public ApiResponse() {
+        this.timestamp = LocalDateTime.now();
+    }
+
+    public ApiResponse(T data) {
+        this.data = data;
         this.timestamp = LocalDateTime.now();
     }
 
@@ -19,23 +26,27 @@ public class ApiResponse<T> {
         this.timestamp = LocalDateTime.now();
     }
 
-    public static <T> ApiResponse<T> success(String message, T data) {
-        return new ApiResponse<>(200, message, data);
+    public static <T> ApiResponse<T> success(T data) {
+        return new ApiResponse<>(data);
     }
 
-    public static <T> ApiResponse<T> success(T data) {
-        return new ApiResponse<>(200, "Success", data);
+    public static <T> ApiResponse<T> created(T data) {
+        return new ApiResponse<>(201, "Thành công", data);
+    }
+
+    public static <T> ApiResponse<T> success(String message, T data) {
+        return new ApiResponse<>(200, message, data);
     }
 
     public static <T> ApiResponse<T> error(int status, String message) {
         return new ApiResponse<>(status, message, null);
     }
 
-    public int getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 
