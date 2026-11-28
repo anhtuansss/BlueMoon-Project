@@ -15,6 +15,7 @@ public class ManualPaymentRequest {
     @NotBlank(message = "Phương thức thanh toán không được để trống (CASH, BANK_TRANSFER)")
     private String method;
 
+    private Long apartmentId; // Bắt buộc khi đóng góp tự nguyện (không qua obligation)
     private LocalDateTime paidAt;
     private Long payerPersonId;
     private String notes;
@@ -26,6 +27,9 @@ public class ManualPaymentRequest {
 
     public String getMethod() { return method; }
     public void setMethod(String method) { this.method = method; }
+
+    public Long getApartmentId() { return apartmentId; }
+    public void setApartmentId(Long apartmentId) { this.apartmentId = apartmentId; }
 
     public LocalDateTime getPaidAt() { return paidAt; }
     public void setPaidAt(LocalDateTime paidAt) { this.paidAt = paidAt; }

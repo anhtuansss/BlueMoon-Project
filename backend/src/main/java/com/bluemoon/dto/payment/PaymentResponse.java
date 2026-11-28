@@ -6,7 +6,12 @@ import java.time.LocalDateTime;
 public class PaymentResponse {
     private Long id;
     private Long obligationId;
+    private Long donationCampaignId;
+    private String campaignTitle;
     private Long apartmentId;
+    private String apartmentNumber;
+    private Long payerPersonId;
+    private String payerName;
     private BigDecimal amount;
     private String paymentMethod;
     private String paymentStatus;
@@ -23,8 +28,23 @@ public class PaymentResponse {
     public Long getObligationId() { return obligationId; }
     public void setObligationId(Long obligationId) { this.obligationId = obligationId; }
 
+    public Long getDonationCampaignId() { return donationCampaignId; }
+    public void setDonationCampaignId(Long donationCampaignId) { this.donationCampaignId = donationCampaignId; }
+
+    public String getCampaignTitle() { return campaignTitle; }
+    public void setCampaignTitle(String campaignTitle) { this.campaignTitle = campaignTitle; }
+
     public Long getApartmentId() { return apartmentId; }
     public void setApartmentId(Long apartmentId) { this.apartmentId = apartmentId; }
+
+    public String getApartmentNumber() { return apartmentNumber; }
+    public void setApartmentNumber(String apartmentNumber) { this.apartmentNumber = apartmentNumber; }
+
+    public Long getPayerPersonId() { return payerPersonId; }
+    public void setPayerPersonId(Long payerPersonId) { this.payerPersonId = payerPersonId; }
+
+    public String getPayerName() { return payerName; }
+    public void setPayerName(String payerName) { this.payerName = payerName; }
 
     public BigDecimal getAmount() { return amount; }
     public void setAmount(BigDecimal amount) { this.amount = amount; }
